@@ -1,201 +1,209 @@
 <div>
-    <form wire:submit.prevent="store">
-        <div>
-            <label for="name">Nombre:</label>
-            <input type="text" wire:model="name" placeholder="Nombre">
-            @error('name') <span class="text-red-500">{{ $message }}</span> @enderror
+    <form wire:submit.prevent="storeUpdate">
+        <div class="row justify-content-between align-items-center">
+            <h3 class="col-auto">Nuevo Producto</h3>
+            <div class="col-auto">
+                <a href="{{ route('postulate.index') }}" class="btn btn-secondary">
+                    <i data-feather="eye"></i>
+                    Mostrar Postulaciones
+                </a>
+                <button type="submit" class="btn btn-primary">
+                    <i data-feather="plus-square"></i>
+                    @if($postulateId)
+                        Actualizar
+                    @else
+                        Agregar
+                    @endif
+                </button>
+            </div>
         </div>
-        <div>
-            <label for="last_name1">Apellido Paterno:</label>
-            <input type="text" wire:model="last_name1" placeholder="Apellido Paterno">
-            @error('last_name1') <span class="text-red-500">{{ $message }}</span> @enderror
+        <div class="row mt-4">
+        <div class="stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        @if (session()->has('message'))
+                            <div class="alert alert-success">{{ session('message') }}</div>
+                        @endif
+
+                        @if ($errors->has('message'))
+                            <div class="alert alert-danger">{{ $errors->first('message') }}</div>
+                        @endif
+                            <div class="col-12 col-sm-6 mt-3">
+                                <label for="name">Nombre:</label>
+                                <input type="text" id="name" wire:model="name" class="form-control">
+                                @error('name') <span class="text-danger">{{ $message }}</span> @enderror
+                            </div>
+                            <div class="col-12 col-sm-6 mt-3">
+                                <label for="last_name1">Apellido Paterno:</label>
+                                <input type="text" id="last_name1" wire:model="last_name1" class="form-control">
+                                @error('last_name1') <span class="text-danger">{{ $message }}</span> @enderror   
+                            </div>
+                            <div class="col-12 col-sm-6 mt-3">
+                                <label for="last_name2">Apellido Materno:</label>
+                                <input type="text" id="last_name2" wire:model="last_name2" class="form-control">
+                                @error('last_name2') <span class="text-danger">{{ $message }}</span> @enderror
+                            </div>
+                            <div class="col-12 col-sm-6 mt-3">
+                                <label for="email">Correo:</label>
+                                <input type="text" id="email" wire:model="email" class="form-control">
+                                @error('email') <span class="text-danger">{{ $message }}</span> @enderror
+                            </div>
+                            <div class="col-12 col-sm-6 mt-3">
+                                <label for="phone">Teléfono:</label>
+                                <input type="text" id="phone" wire:model="phone" class="form-control">
+                                @error('phone') <span class="text-danger">{{ $message }}</span> @enderror
+                            </div>               
+                            <div class="col-12 col-sm-6 mt-3">
+                                <label for="curp">CURP:</label>
+                                <input type="text" id="curp" wire:model="curp" class="form-control">
+                                @error('curp') <span class="text-danger">{{ $message }}</span> @enderror
+                            </div>
+                            <div class="col-12 col-sm-6 mt-3">postulates
+                                <label for="rfc">RFC:</label>
+                                <input type="text" id="rfc" wire:model="rfc" class="form-control">
+                                @error('rfc') <span class="text-danger">{{ $message }}</span> @enderror
+                            </div>
+                            <div class="col-12 col-sm-6 mt-3">
+                                <label for="nationality">Nacionalidad:</label>
+                                <input type="text" id="nationality" wire:model="nationality" class="form-control">
+                                @error('nationality') <span class="text-danger">{{ $message }}</span> @enderror
+                            </div>
+                            <div class="col-12 col-sm-6 mt-3">
+                                <label for="place_born">Lugar de Nacimiento:</label>
+                                <input type="text" id="place_born" wire:model="place_born" class="form-control">
+                                @error('place_born') <span class="text-danger">{{ $message }}</span> @enderror
+                            </div>
+                            <div class="col-12 col-sm-6 mt-3">
+                                <label for="account_number_bank">Número de Cuenta Bancaria:</label>
+                                <input type="text" id="account_number_bank" wire:model="account_number_bank" class="form-control">
+                                @error('account_number_bank') <span class="text-danger">{{ $message }}</span> @enderror
+                            </div>
+                            <div class="col-12 col-sm-6 mt-3">
+                                <label for="bank">Banco:</label>
+                                <input type="text" id="bank" wire:model="bank" class="form-control">
+                                @error('bank') <span class="text-danger">{{ $message }}</span> @enderror
+                            </div>
+                            <div class="col-12 col-sm-6 mt-3">
+                                <label for="clabe">CLABE:</label>
+                                <input type="text" id="clabe" wire:model="clabe" class="form-control">
+                                @error('clabe') <span class="text-danger">{{ $message }}</span> @enderror
+                            </div>
+                            <div class="col-12 col-sm-6 mt-3">
+                                <label for="infonavit">INFONAVIT:</label>
+                                <input type="text" id="infonavit" wire:model="infonavit" class="form-control">
+                                @error('infonavit') <span class="text-danger">{{ $message }}</span> @enderror
+                            </div>
+                            <div class="col-12 col-sm-6 mt-3">
+                                <label for="position">Puesto:</label>
+                                <input type="text" id="position" wire:model="position" class="form-control">
+                                @error('position') <span class="text-danger">{{ $message }}</span> @enderror
+                            </div>
+                            <div class="col-12 col-sm-6 mt-3">
+                                <label for="date_start">Fecha de Ingreso:</label>
+                                <input type="date" id="date_start" wire:model="date_start" class="form-control">
+                                @error('date_start') <span class="text-danger">{{ $message }}</span> @enderror
+                            </div>
+                            <div class="col-12 col-sm-6 mt-3">
+                                <label for="remplacement_employee_id">ID Empleado a Reemplazar:</label>
+                                <input type="text" id="remplacement_employee_id" wire:model="remplacement_employee_id" class="form-control">
+                                @error('remplacement_employee_id') <span class="text-danger">{{ $message }}</span> @enderror
+                            </div>
+
+                            @if($remplacement_employee_id)
+                                <div class="col-12 col-sm-6 mt-3">
+                                    <label for="remplacement_employee_name">Nombre del Empleado a Reemplazar:</label>
+                                    <input type="text" id="remplacement_employee_name" wire:model="remplacement_employee_name" class="form-control">
+                                    @error('remplacement_employee_name') <span class="text-danger">{{ $message }}</span> @enderror
+                                </div>
+                                <div class="col-12 col-sm-6 mt-3">
+                                    <label for="remplacement_employee_reasons">Motivos del Reemplazo:</label>
+                                    <input type="text" id="remplacement_employee_reasons" wire:model="remplacement_employee_reasons" class="form-control">
+                                    @error('remplacement_employee_reasons') <span class="text-danger">{{ $message }}</span> @enderror
+                                </div>
+                                <div class="col-12 col-sm-6 mt-3">
+                                    <label for="remplacement_employee_date">Fecha de Reemplazo:</label>
+                                    <input type="date" id="remplacement_employee_date" wire:model="remplacement_employee_date" class="form-control">
+                                    @error('remplacement_employee_date') <span class="text-danger">{{ $message }}</span> @enderror
+                                </div>
+                            @endif
+
+                            <div class="col-12 col-sm-6 mt-3">
+                                <label for="scholarship">Escolaridad:</label>
+                                <input type="text" id="scholarship" wire:model="scholarship" class="form-control">
+                                @error('scholarship') <span class="text-danger">{{ $message }}</span> @enderror
+                            </div>
+                            <div class="col-12 col-sm-6 mt-3">
+                                <label for="gender">Género:</label>
+                                <select id="gender" wire:model="gender" class="form-select">
+                                    <option value="">Seleccione</option>
+                                    <option value="1">Masculino</option>
+                                    <option value="2">Femenino</option>
+                                    <option value="3">Otro</option>
+                                </select>
+                                @error('gender') <span class="text-danger">{{ $message }}</span> @enderror
+                            </div>
+                            <div class="col-12 col-sm-6 mt-3">
+                                <label for="marital_status">Estado Civil:</label>
+                                <select id="marital_status" wire:model="marital_status" class="form-select">
+                                    <option value="">Seleccione</option>
+                                    <option value="1">Soltero(a)</option>
+                                    <option value="2">Casado(a)</option>
+                                </select>
+                                @error('marital_status') <span class="text-danger">{{ $message }}</span> @enderror
+                            </div>
+                            <div class="col-12 col-sm-6 mt-3">
+                                <label for="street">Calle:</label>
+                                <input type="text" id="street" wire:model="street" class="form-control">
+                                @error('street') <span class="text-danger">{{ $message }}</span> @enderror
+                            </div>
+                            <div class="col-12 col-sm-6 mt-3">
+                                <label for="number">Número:</label>
+                                <input type="text" id="number" wire:model="number" class="form-control">
+                                @error('number') <span class="text-danger">{{ $message }}</span> @enderror
+                            </div>
+                            <div class="col-12 col-sm-6 mt-3">
+                                <label for="suburb">Colonia:</label>
+                                <input type="text" id="suburb" wire:model="suburb" class="form-control">
+                                @error('suburb') <span class="text-danger">{{ $message }}</span> @enderror
+                            </div>
+                            <div class="col-12 col-sm-6 mt-3">
+                                <label for="colony">Colonia:</label>
+                                <input type="text" id="colony" wire:model="colony" class="form-control">
+                                @error('colony') <span class="text-danger">{{ $message }}</span> @enderror
+                            </div>
+                            <div class="col-12 col-sm-6 mt-3">
+                                <label for="city">Ciudad:</label>
+                                <input type="text" id="city" wire:model="city" class="form-control">
+                                @error('city') <span class="text-danger">{{ $message }}</span> @enderror
+                            </div>
+                            <div class="col-12 col-sm-6 mt-3">
+                                <label for="state">Estado:</label>
+                                <input type="text" id="state" wire:model="state" class="form-control">
+                                @error('state') <span class="text-danger">{{ $message }}</span> @enderror
+                            </div>
+                            <div class="col-12 col-sm-6 mt-3">
+                                <label for="cp">Código Postal:</label>
+                                <input type="text" id="cp" wire:model="cp" class="form-control">
+                                @error('cp') <span class="text-danger">{{ $message }}</span> @enderror
+                            </div>
+                            <!-- no mostrar si se edita -->
+                            @if(!$postulateId)
+                                <div class="col-12 mt-3">
+                                    <label for="file">Archivo:</label>
+                                    <input type="file" wire:model="file" name="file" accept=".jpeg,.png,.pdf" class="form-control">
+                                    @error('file') <span class="text-danger">{{ $message }}</span> @enderror
+                                    <div>
+                                        @if ($file)
+                                            <img src="{{ $file->temporaryUrl() }}" class="img-fluid" alt="Preview Image">
+                                        @endif
+                                    </div>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div>
-            <label for="last_name2">Apellido Materno:</label>
-            <input type="text" wire:model="last_name2" placeholder="Apellido Materno">
-            @error('last_name2') <span class="text-red-500">{{ $message }}</span> @enderror
-        </div>
-        <div>
-            <label for="email">Correo electrónico:</label>
-            <input type="email" wire:model="email" placeholder="Correo electrónico">
-            @error('email') <span class="text-red-500">{{ $message }}</span> @enderror
-        </div>
-        <div>
-            <label for="phone">Teléfono:</label>
-            <input type="text" wire:model="phone" placeholder="Teléfono">
-            @error('phone') <span class="text-red-500">{{ $message }}</span> @enderror
-        </div>
-        <div>
-            <label for="curp">curp:</label>
-            <input type="text" wire:model="curp" placeholder="CURP">
-            @error('curp') <span class="text-red-500">{{ $message }}</span> @enderror
-        </div>
-        <div>
-            <label for="rfc">rfc:</label>
-            <input type="text" wire:model="rfc" placeholder="RFC">
-            @error('rfc') <span class="text-red-500">{{ $message }}</span> @enderror
-        </div>
-        <div>
-            <label for="nationality">Nacionalidad</label>
-            <input type="text" wire:model="nationality" placeholder="Nacionalidad">
-            @error('nationality') <span class="text-red-500">{{ $message }}</span> @enderror
-        </div>
-        <div>
-            <label for="place_born">Lugar de nacimiento</label>
-            <input type="text" wire:model="place_born" placeholder="Lugar de nacimieento">
-            @error('place_born') <span class="text-red-500">{{ $message }}</span> @enderror
-        </div>
-        <div>
-            <label for="account_number_bank">Número de cuenta bancaria</label>
-            <input type="number" wire:model="account_number_bank" placeholder="Número de cuenta bancaria">
-            @error('account_number_bank') <span class="text-red-500">{{ $message }}</span> @enderror
-        </div>
-        <div>
-            <label for="bank">Banco</label>
-            <input type="text" wire:model="bank" placeholder="Banco">
-            @error('bank') <span class="text-red-500">{{ $message }}</span> @enderror
-        </div>
-        <div>
-            <label for="clabe">Clabe</label>
-            <input type="number" wire:model="clabe" placeholder="Clabe">
-            @error('clabe') <span class="text-red-500">{{ $message }}</span> @enderror
-        </div>
-        <div>
-            <label for="infonavit">Infonavit</label>
-            <input type="number" wire:model="infonavit" placeholder="Infonavit">
-            @error('infonavit') <span class="text-red-500">{{ $message }}</span> @enderror
-        </div>
-        <div>
-            <label for="position">Puesto</label>
-            <input type="text" wire:model="position" placeholder="Puesto">
-            @error('position') <span class="text-red-500">{{ $message }}</span> @enderror
-        </div>
-        <div>
-            <label for="date_start">Fecha de inicio</label>
-            <input type="date" wire:model="date_start" placeholder="Fecha de inicio">
-            @error('date_start') <span class="text-red-500">{{ $message }}</span> @enderror
-        </div>
-        <div>
-            <label for="remplacement_employee_id">ID del empleado a reemplazar</label>
-            <input type="text" wire:model="remplacement_employee_id" placeholder="ID del empleado a reemplazar">
-            @error('remplacement_employee_id') <span class="text-red-500">{{ $message }}</span> @enderror
-        </div>
-        <div>
-            <label for="remplacement_employee_name">Nombre del empleado a reemplazar</label>
-            <input type="text" wire:model="remplacement_employee_name" placeholder="Nombre del empleado a reemplazar">
-            @error('remplacement_employee_name') <span class="text-red-500">{{ $message }}</span> @enderror
-        </div>
-        <div>
-            <label for="remplacement_employee_reasons">Motivos del reemplazo</label>
-            <input type="text" wire:model="remplacement_employee_reasons" placeholder="Motivos del reemplazo">
-            @error('remplacement_employee_reasons') <span class="text-red-500">{{ $message }}</span> @enderror
-        </div>
-        <div>
-            <label for="remplacement_employee_date">Fecha del reemplazo</label>
-            <input type="date" wire:model="remplacement_employee_date" placeholder="Fecha del reemplazo">
-            @error('remplacement_employee_date') <span class="text-red-500">{{ $message }}</span> @enderror
-        </div>
-        <div>
-            <label for="scholarship">Escolaridad</label>
-            <input type="text" wire:model="scholarship" placeholder="Escolaridad">
-            @error('scholarship') <span class="text-red-500">{{ $message }}</span> @enderror
-        </div>
-        <div>
-            <label for="gender">Genero</label>
-            <input type="text" wire:model="gender" placeholder="Genero">
-            @error('gender') <span class="text-red-500">{{ $message }}</span> @enderror
-        </div>
-        <div>
-            <label for="marital_status">Estado civil</label>
-            <input type="text" wire:model="marital_status" placeholder="Estado civil">
-            @error('marital_status') <span class="text-red-500">{{ $message }}</span> @enderror
-        </div>
-        <div>
-            <label for="street">Calle</label>
-            <input type="text" wire:model="street" placeholder="Calle">
-            @error('street') <span class="text-red-500">{{ $message }}</span> @enderror
-        </div>
-        <div>
-            <label for="number">Número</label>
-            <input type="number" wire:model="number" placeholder="Número">
-            @error('number') <span class="text-red-500">{{ $message }}</span> @enderror
-        </div>
-        <div>
-            <label for="suburb">Colonia</label>
-            <input type="text" wire:model="suburb" placeholder="Colonia">
-            @error('suburb') <span class="text-red-500">{{ $message }}</span> @enderror
-        </div>
-        <div>
-            <label for="colony">Delegación</label>
-            <input type="text" wire:model="colony" placeholder="Delegación">
-            @error('colony') <span class="text-red-500">{{ $message }}</span> @enderror
-        </div>
-        <div>
-            <label for="city">Ciudad</label>
-            <input type="text" wire:model="city" placeholder="Ciudad">
-            @error('city') <span class="text-red-500">{{ $message }}</span> @enderror
-        </div>
-        <div>
-            <label for="state">Estado</label>
-            <input type="text" wire:model="state" placeholder="Estado">
-            @error('state') <span class="text-red-500">{{ $message }}</span> @enderror
-        </div>
-        <div>
-            <label for="cp">Código postal</label>
-            <input type="number" wire:model="cp" placeholder="Código postal">
-            @error('cp') <span class="text-red-500">{{ $message }}</span> @enderror
-        </div>
-        <div>
-            @if($file)
-                Archivos
-                <img src="{{ $file->temporaryUrl() }}">
-            @endif
-            <label for="file">Archivo</label>
-            <input type="file" wire:model="file" name="file" accept=".jpeg,.png,.pdf">
-            @error('file') <span class="text-red-500">{{ $message }}</span> @enderror
-        </div>
-        <button type="submit">Registrar</button>
     </form>    
-
-
-    <hr>
-
-
-     <!-- Mostrar lista de usuarios -->
-     <ul>
-        @foreach ($users as $user)
-            <li>
-                {{ $user->name }} {{ $user->last_name1 }} {{ $user->last_name2 }} ({{ $user->email }} - {{ $user->phone }})
-                <a href="{{ Storage::url($user->file_path) }}" target="_blank">Ver archivo</a>
-                @if ($editUserId !== $user->id)
-                    <button wire:click="editUser({{ $user->id }})">Editar</button>
-                @endif
-            </li>
-        @endforeach
-    </ul>
-
-    Formulario de edición
-    @if ($editUserId !== null)
-        <form wire:submit.prevent="update">
-            <input type="text" wire:model="name" placeholder="Nombre">
-            @error('name') <span class="text-red-500">{{ $message }}</span> @enderror
-
-            <input type="text" wire:model="last_name1" placeholder="Apellido Paterno">
-            @error('last_name1') <span class="text-red-500">{{ $message }}</span> @enderror
-
-            <input type="text" wire:model="last_name2" placeholder="Apellido Materno">
-            @error('last_name2') <span class="text-red-500">{{ $message }}</span> @enderror
-
-            <input type="email" wire:model="email" placeholder="Correo electrónico">
-            @error('email') <span class="text-red-500">{{ $message }}</span> @enderror
-
-            <input type="text" wire:model="phone" placeholder="Teléfono">
-            @error('phone') <span class="text-red-500">{{ $message }}</span> @enderror
-
-            
-
-            <button type="submit">Guardar cambios</button>
-            <button type="button" wire:click="cancelEdit">Cancelar</button>
-        </form>
-    @endif
 </div>

@@ -1,7 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostulateController;
 use App\Http\Livewire\Edit;
+use App\Http\Livewire\Show;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -14,13 +17,6 @@ use App\Http\Livewire\Edit;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/user-list', function () {
-    $users = \App\Models\User::all();
-    return view('user-list', compact('users'));
-})->name('user-list');
-
-
+Route::get('/index/{postulateId?}', [PostulateController::class, 'index'])->name('postulate.index');
+Route::get('/create/{postulateId?}', [PostulateController::class, 'create'])->name('postulate.create');
+Route::get('/export', [PostulateController::class, 'export'])->name('export');
